@@ -11,7 +11,14 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.options({
+    hmrOptions: {
+        host: '127.0.0.1',
+        port: 8080
+    }
+})
+
+mix.js('resources/js/public/public.js', 'public/js')
+    .js('resources/js/admin/admin.js', 'public/js')
+    .js('resources/js/user/user.js', 'public/js')
+    .vue({version: 2});
