@@ -1,12 +1,23 @@
 <template>
     <div :class="['button', {'flat': flat}, type]">
-        {{label}}
+        <text-label :label="label" />
+        <icon :type="icon" />
     </div>
 </template>
 
 <script>
+    import Icon from "./icon";
+    import TextLabel from "./text-label";
     export default {
+        components: {TextLabel, Icon},
         props: {
+
+            icon: {
+                default() {
+                    return null
+                }
+            },
+
             label: {
                 default() {
                     return "Button"
@@ -15,7 +26,7 @@
 
             type: {
                 default() {
-                    return "default";
+                    return "primary";
                 }
             },
 

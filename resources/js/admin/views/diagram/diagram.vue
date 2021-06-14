@@ -248,11 +248,11 @@
             ]);
 
             EntityField.insert([
-                {id: 1, name: 'mark_id', position: 1, type:'number', entity_id: 1},
+                {id: 1, name: 'mark_id', position: 1, type:'number', entity_id: 1, isPrimary: true},
                 {id: 2, name: 'mark_name', position: 2, type:'string', entity_id: 1},
                 {id: 3, name: 'mark_team_id', position: 3, type:'number', entity_id: 1},
 
-                {id: 4, name: 'id', position: 1, type:'number', entity_id: 2},
+                {id: 4, name: 'id', position: 1, type:'number', entity_id: 2,  isPrimary: true},
                 {id: 5, name: 'name', position: 2, type:'string', entity_id: 2},
                 {id: 6, name: 'description', position: 3, type:'number', entity_id: 2},
             ]);
