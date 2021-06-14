@@ -6,45 +6,38 @@
                 <dd>Zoom: {{diagramZoom}}</dd>
                 <dd>Position: {{diagramPosition}}</dd>
             </dl>
-            <dl >
-                <template v-for="project in projects">
-                    <dt>
-                        <icon type="folder"></icon>
-                        <text-label :label="project.name" />
-                        <icon type="expand_less"></icon>
-                    </dt>
-                    <dd>
-                        <dl>
-                            <template v-for="entity in project.entitys">
-                                <dt>
-                                    <icon type="table_chart"></icon>
-                                    <text-label :label="entity.name" />
-                                    <icon type="expand_less"></icon>
-                                </dt>
+            <list-item :key="project.id" v-for="project in projects" icon="folder" :label="project.name">
+                <list-item :key="entity.id" v-for="entity in project.entitys" icon="table_chart" :label="entity.name">
+                    <list-item label="fields" icon="input">
+                        <template v-for="field in entity.entity_fields">
+                            <dt>
+                                <icon type="input" />
+                                <icon data-type="is_primary_key" type="vpn_key" v-if="field.isPrimary === true" />
+                                <icon data-type="is_not_primary_key" type="vpn_key" v-else />
+                                <text-label :label="field.name" /> <text-label :label="field.type" />
+                            </dt>
+                        </template>
+                        <dt><Button icon="" label="add field" type="default" /></dt>
+                    </list-item>
+                    <list-item label="relations" icon="account_tree">
+                        <dt><Button icon="" label="add relation" type="default" /></dt>
+                    </list-item>
+                    <list-item label="diagram_position" icon="picture_in_picture">
+                        <dt>
+                            <text-label :label="entity.diagram_position.x+', '" />
+                            <text-label :label="entity.diagram_position.y+' ('"  />
+                            <text-label :label="entity.diagram_position.width+','" />
+                            <text-label :label="entity.diagram_position.height+')'" />
+                        </dt>
+                    </list-item>
 
-                                <dd>
-                                    <dl>
-                                        <template v-for="field in entity.entity_fields">
-                                            <dt>
-                                                <icon type="input" />
-                                                <icon data-type="is_primary_key" type="vpn_key" v-if="field.isPrimary === true" />
-                                                <icon data-type="is_not_primary_key" type="vpn_key" v-else />
-                                                <text-label :label="field.name" /> <text-label :label="field.type" />
-                                            </dt>
-                                        </template>
-                                        <dt><Button icon="" label="add field" type="default" /></dt>
-                                    </dl>
-                                </dd>
-                            </template>
-                            <dt><Button icon="" label="add entity" type="default" /></dt>
-                        </dl>
 
-                    </dd>
-                </template>
+                </list-item>
+                <dt><Button icon="" label="add entity" type="default" /></dt>
                 <dt>
                     <Button icon="" label="add project" type="default"/>
                 </dt>
-            </dl>
+            </list-item>
         </div>
     </side-bar>
 </template>
@@ -80,10 +73,11 @@ import SideBar from "../../../../components/side-bar";
 import Button from "../../../../components/button";
 import Icon from "../../../../components/icon";
 import TextLabel from "../../../../components/text-label";
+import ListItem from "../../../../components/list-item";
 
 export default {
 
-    components: {TextLabel, Icon, Button, SideBar},
+    components: {ListItem, TextLabel, Icon, Button, SideBar},
 
     props: {
         activeDiagram: {

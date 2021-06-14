@@ -10,7 +10,7 @@
                 v-on:mousemove="(e) => dragBoard(e)"
                 v-on:mouseup="(e) => dragEnd(e)"
                 v-on:mouseleave="(e) => dragEnd(e)"
-                v-on:wheel="e => zoom(e)"
+                v-on:wheel="e => zoom(e)"e
         ></canvas>
     </div>
 </template>
