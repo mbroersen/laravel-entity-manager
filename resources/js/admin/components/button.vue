@@ -26,7 +26,7 @@
 
             type: {
                 default() {
-                    return "primary";
+                    return "default";
                 }
             },
 
