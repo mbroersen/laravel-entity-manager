@@ -1,6 +1,6 @@
 <template>
     <div class="text-row">
-        <div class="label">{{label}}</div>
+        <div class="label" v-if="!hideLabel">{{label}}</div>
         <div class="field">
             <input v-model="my_value" >
         </div>
@@ -17,6 +17,12 @@
             label: {
                 default() {
                     return 'text-field';
+                }
+            },
+
+            hideLabel:{
+                default() {
+                    return false;
                 }
             }
         },

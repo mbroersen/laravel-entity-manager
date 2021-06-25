@@ -1,8 +1,7 @@
 <template>
     <nav>
-        <div :key="link" v-for="link in links">
-            <router-link :to="{name: link}">{{link}}</router-link>
-        </div>
+
+            <router-link tag="div" :key="link" v-for="link in links" :to="{name: link}">{{link}}</router-link>
 
     </nav>
 </template>
@@ -20,15 +19,22 @@
     }
 </script>
 
+<!--//https://coolors.co/3c91e6-9fd356-342e37-fafffd-fa824c-->
 
 <style lang="scss">
+
     $navigation-height: 40px;
+    $font: Roboto;
+    $navigation-color-bg: rgba(60, 145, 230, .9);
+    $navigation-color-hover: rgba(159, 211, 86, .9);
+    $navigation-border: 2px solid rgba(250, 130, 76, .9);
+    $navigation-color-text: rgba(52, 46, 55, 1);
 
     nav {
         display: flex;
         align-items: stretch;
         height: $navigation-height;
-        background: rgba(66,66,240, 0.9);
+        background: $navigation-color-bg;
 
         overflow-x: scroll;
         max-width: 100vw;
@@ -43,22 +49,20 @@
         div {
             padding: 15px 30px;
             font-weight: bold;
-            font-family: Arial;
+            font-family: $font;
             font-size: 14px;
             transition: all 2s;
+            height: 100%;
+            color: $navigation-color-text;
 
-            a {
-                color: rgba(255,255,255,1);
-                text-decoration: none;
+            &:hover {
+                cursor: pointer;
+                border-bottom: $navigation-border;
+                background: $navigation-color-hover;
+            }
 
-                &:hover {
-                    border-bottom: 2px solid red;
-                    background: rgba(66, 66, 240, 0.3);
-                }
-
-                &.router-link-active {
-                    border-bottom: 2px solid red;
-                }
+            &.router-link-active {
+                border-bottom: 2px solid rgba(250, 130, 76, .9);
             }
 
 

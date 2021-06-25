@@ -21,12 +21,12 @@
 </script>
 
 <style lang="scss">
-    $sidebar-background-color: rgba(255, 255, 255, 1);
+    $sidebar-background-color: rgba(250, 255, 253, 1);
     $sidebar-border: rgba(166, 166, 166, 0.7) 1px solid;
     $sidebar-width: 300px;
     $sidebar-z-index: 100;
     $sidebar-left: 0;
-    $sidebar-inner-spacing: 0 20px;
+    $sidebar-inner-spacing: 0;
     $sidebar-top: 41px;
 
     aside.sidebar {
@@ -36,11 +36,10 @@
 
         width: $sidebar-width;
         height: calc(100vh - #{$sidebar-top});
-        overflow-y: hidden;
+        overflow-y: auto;
 
         background: $sidebar-background-color;
         padding: $sidebar-inner-spacing;
-
 
         &:not([data-position^="right"]) {
             left: $sidebar-left;

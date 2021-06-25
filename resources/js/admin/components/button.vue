@@ -32,7 +32,7 @@
 
             flat: {
                 default() {
-                    return true;
+                    return false;
                 }
             }
         }
@@ -52,16 +52,20 @@
     .button {
         border-radius: 4px;
         transition: all .5s;
-
-        text-transform: uppercase;
         padding: $button-padding;
-        line-height: $button-line-height;
-        text-align: center;
         min-width: 64px;
         width: fit-content;
-        font-size: 14px;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-items: center;
+
         font-weight: bold;
         height: $button-height;
+
+        :first-child {
+            flex-grow: 1;
+        }
 
         &:hover {
             cursor: pointer;

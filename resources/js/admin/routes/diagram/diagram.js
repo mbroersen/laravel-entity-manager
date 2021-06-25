@@ -30,7 +30,7 @@ export default {
     children: [
         {
             path: '',
-
+            name: 'Diagram',
             components: {
                 sidebar: explorer
             },

@@ -1,69 +1,69 @@
 <template>
     <side-bar>
-        <div>
+        <div class="explorer">
             <h1>{{diagram.name}}</h1>
-            <dl>
-                <dd>Zoom: {{diagramZoom}}</dd>
-                <dd>Position: {{diagramPosition}}</dd>
-            </dl>
+            <ul>
+                <li>Zoom: {{diagramZoom}}</li>
+                <li>Position: {{diagramPosition}}</li>
+            </ul>
+            <hr />
             <list-item :key="project.id" v-for="project in projects" icon="folder" :label="project.name">
-                <list-item :key="entity.id" v-for="entity in project.entitys" icon="table_chart" :label="entity.name">
-                    <list-item label="fields" icon="input">
-                        <template v-for="field in entity.entity_fields">
-                            <dt>
-                                <icon type="input" />
-                                <icon data-type="is_primary_key" type="vpn_key" v-if="field.isPrimary === true" />
-                                <icon data-type="is_not_primary_key" type="vpn_key" v-else />
-                                <text-label :label="field.name" /> <text-label :label="field.type" />
-                            </dt>
-                        </template>
-                        <dt><Button icon="" label="add field" type="default" /></dt>
+                <list-item icon="table_chart" label="Entities">
+                    <list-item :key="entity.id" v-for="entity in project.entitys" icon="table_chart" :label="entity.name">
+                        <list-item label="fields" icon="input">
+                            <template v-for="field in entity.entity_fields">
+                                <dd>
+                                    <div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 8px;">
+                                        <icon data-type="is_primary_key" type="vpn_key" v-if="field.isPrimary === true" />
+                                        <icon data-type="is_not_primary_key" type="vpn_key" v-else />
+                                        <text-field :hide-label="true" label="name" :value="field.name" />
+                                        <select-field :hide-label="true" label="type" v-model="field.type" :select-options="[{label: 'string', value: 'string'}, {label: 'number', value: 'number'}]" />
+                                    </div>
+                                </dd>
+                            </template>
+                            <dd>
+                                <div style="display: flex; flex-direction: row; justify-content: space-between; padding: 8px; ">
+                                    <Button style="flex-grow: 0;" icon="" label="add field" type="default" /> <Button icon="" label="save" type="default" />
+                                </div>
+                            </dd>
+                        </list-item>
+                        <list-item label="relations" icon="account_tree">
+                            <dd><Button icon="" label="add relation" type="default" /></dd>
+                        </list-item>
+                        <list-item label="diagram_position" icon="picture_in_picture">
+                            <dd>
+                                <text-label :label="positionInDiagram(entity.diagram_position)" />
+                            </dd>
+                        </list-item>
                     </list-item>
-                    <list-item label="relations" icon="account_tree">
-                        <dt><Button icon="" label="add relation" type="default" /></dt>
-                    </list-item>
-                    <list-item label="diagram_position" icon="picture_in_picture">
-                        <dt>
-                            <text-label :label="entity.diagram_position.x+', '" />
-                            <text-label :label="entity.diagram_position.y+' ('"  />
-                            <text-label :label="entity.diagram_position.width+','" />
-                            <text-label :label="entity.diagram_position.height+')'" />
-                        </dt>
-                    </list-item>
-
-
+                    <hr>
+                    <dd><Button icon="" label="add entity" type="default" /></dd>
                 </list-item>
-                <dt><Button icon="" label="add entity" type="default" /></dt>
-                <dt>
-                    <Button icon="" label="add project" type="default"/>
-                </dt>
+
             </list-item>
+            <dl>
+                <dd>
+                    <Button icon="" label="add project" type="default"/>
+                </dd>
+            </dl>
         </div>
     </side-bar>
 </template>
 
 <style lang="scss">
-
-.icon[data-type="is_primary_key"]  {
-    color: rgba(220,220,100, 0.9);
-    font-size: 12px;
-    text-outline: 1px rgba(233 ,33 , 33, 1) ;
-}
-
-.icon[data-type="is_not_primary_key"]  {
-    color: rgba(133, 133,133, 0.2);
-    font-size: 12px;
-    text-outline: 1px rgba(233 ,33 , 33, 1) ;
-}
-
-
-
-    #explorer {
-        dl {
-
+    .explorer {
+        h1 {
+            padding: 0 8px;
         }
+    }
+    .icon[data-type="is_primary_key"]  {
+        color: rgba(220,220,100, 0.9);
+        font-size: 12px;
+    }
 
-
+    .icon[data-type="is_not_primary_key"] {
+        color: rgba(133, 133, 133, 0.2);
+        font-size: 12px;
     }
 </style>
 
@@ -74,14 +74,22 @@ import Button from "../../../../components/button";
 import Icon from "../../../../components/icon";
 import TextLabel from "../../../../components/text-label";
 import ListItem from "../../../../components/list-item";
+import TextField from "../../../../components/text-field";
+import SelectField from "../../../../components/select-field";
 
 export default {
 
-    components: {ListItem, TextLabel, Icon, Button, SideBar},
+    components: {SelectField, TextField, ListItem, TextLabel, Icon, Button, SideBar},
 
     props: {
         activeDiagram: {
             default: () => { return {projects: []}; }
+        }
+    },
+
+    methods: {
+        positionInDiagram(position) {
+            return `${position?.x ?? 0}, ${position?.y ?? 0} (${position?.height ?? 0}, ${position?.width ?? 0})`
         }
     },
 

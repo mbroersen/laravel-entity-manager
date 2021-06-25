@@ -1,6 +1,6 @@
 <template>
     <div class="select-row">
-        <div class="label">{{label}}</div>
+        <div class="label" v-if="!hideLabel">{{label}}</div>
         <div class="field">
             <select v-model="my_value" >
                 <option :key="option.value" :label="option.label" :value="option.value" v-for="option in selectOptions"></option>
@@ -17,7 +17,6 @@
             },
 
             selectOptions: {
-
                 default() {
                     return [
                         {label: 'test', value: 10},
@@ -29,6 +28,12 @@
             label: {
                 default() {
                     return 'text-field';
+                }
+            },
+
+            hideLabel:{
+                default() {
+                    return false;
                 }
             }
         },
